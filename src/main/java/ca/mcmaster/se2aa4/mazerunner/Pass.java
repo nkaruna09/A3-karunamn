@@ -9,4 +9,9 @@ public class Pass extends MazeElement {
     public String getType() {
         return "Pass";
     }
+
+    @Override
+    public String toString() {
+        return " ";
+    }
 }

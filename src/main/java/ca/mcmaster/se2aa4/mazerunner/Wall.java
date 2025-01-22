@@ -9,4 +9,9 @@ public class Wall extends MazeElement {
     public String getType() {
         return "Wall";
     }
+
+    @Override
+    public String toString() {
+        return "#";
+    }
 }

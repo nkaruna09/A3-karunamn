@@ -25,20 +25,10 @@ public class Main {
             String inputFile = cmd.getOptionValue("i");
 
             logger.info("**** Reading the maze from file: "+ inputFile); 
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            String line;
 
-            while ((line = reader.readLine()) != null) {
-                StringBuilder lineLog = new StringBuilder();
-                for (int idx = 0; idx < line.length(); idx++) {
-                    if (line.charAt(idx) == '#') {
-                        lineLog.append("WALL "); 
-                    } else if (line.charAt(idx) == ' ') {
-                        lineLog.append("PASS ");
-                    }
-                }
-                logger.info(lineLog.toString().trim());   
-            }
+            Maze maze = new Maze(inputFile);
+            maze.printMaze(); 
+           
         } catch(Exception e) {
             logger.error("An error has occurred", e);
         }
