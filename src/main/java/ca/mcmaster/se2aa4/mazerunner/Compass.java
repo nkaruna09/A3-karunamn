@@ -13,7 +13,8 @@ public class Compass {
 
     public void pointSouth() {
         
-
+    } 
+    
     public void pointEast() {
         
     }
