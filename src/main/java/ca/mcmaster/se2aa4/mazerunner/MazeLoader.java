@@ -19,8 +19,15 @@ public class MazeLoader {
         MazeElement[][] maze = new MazeElement[rows][cols];
 
         for (int i = 0; i < rows; i++) {
+            
+            String line = lines.get(i); 
+
+            if(line.isEmpty()){
+                line = new String(new char[maze[0].length]).replace('\0', ' ');
+            }
+
             for (int j = 0; j < cols; j++) { // deal with exception later
-                char cell = lines.get(i).charAt(j);
+                char cell = line.charAt(j);
                 if (cell == '#') {
                     maze[i][j] = new Wall(i, j);
                 } else if (cell == ' ') {
