@@ -6,10 +6,46 @@ import java.io.IOException;
 public class Maze {
     
     private MazeElement[][] maze;
+    private Position eastEntry; 
+    private Position westEntry; 
 
     public Maze(String inputFile) throws IOException { // Constructor 
         MazeLoader loader = new MazeLoader();
         this.maze = loader.generateMaze(inputFile); 
+        this.eastEntry = findEastEntry(); 
+        this.westEntry = findWestEntry(); 
+    }
+
+    private Position findWestEntry(){
+        int rows = maze.length;
+
+        for (int i=0; i < rows; i++){
+            if (maze[i][0].getType().equals("Pass")){
+                return new Position(i, 0); 
+            }
+        }
+
+        return null;
+    }
+
+    private Position findEastEntry(){
+        int rows = maze.length;
+
+        for (int i=0; i < rows; i++){
+            if (maze[i][maze[0].length-1].getType().equals("Pass")){
+                return new Position(i, maze[0].length-1); 
+            }
+        }   
+
+        return null;
+    }
+
+    public Position getEastEntry(){
+        return this.eastEntry; 
+    }
+
+    public Position getWestEntry(){
+        return this.westEntry; 
     }
 
     public void printMaze(){

@@ -28,6 +28,9 @@ public class Main {
 
             Maze maze = new Maze(inputFile);
             maze.printMaze(); 
+            
+            System.out.println("East entry: " + maze.getEastEntry());
+            System.out.println("West entry: " + maze.getWestEntry());
            
         } catch(Exception e) {
             logger.error("An error has occurred", e);
