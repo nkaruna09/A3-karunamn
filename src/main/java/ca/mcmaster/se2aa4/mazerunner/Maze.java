@@ -48,6 +48,18 @@ public class Maze {
         return this.westEntry; 
     }
 
+    public int getRowCount(){
+        return this.maze.length; 
+    }
+
+    public int getColCount(){
+        return this.maze[0].length; 
+    }
+
+    public MazeElement getElement(int row, int col){
+        return this.maze[row][col]; 
+    }
+
     public void printMaze(){
         int rows = maze.length;
         int cols = maze[0].length;

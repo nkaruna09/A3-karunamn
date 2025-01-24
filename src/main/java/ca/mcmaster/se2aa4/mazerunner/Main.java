@@ -29,14 +29,18 @@ public class Main {
             Maze maze = new Maze(inputFile);
             maze.printMaze(); 
             
-            System.out.println("East entry: " + maze.getEastEntry());
-            System.out.println("West entry: " + maze.getWestEntry());
+            logger.info("East entry: " + maze.getEastEntry());
+            logger.info("West entry: " + maze.getWestEntry());
+
+            MazeRunner runner = new MazeRunner(maze);
+            runner.solveMaze();
+            logger.info("Path: " + runner.getPath());
            
         } catch(Exception e) {
             logger.error("An error has occurred", e);
         }
-        logger.info("**** Computing path");
-        logger.warn("PATH NOT COMPUTED");
+        //logger.info("**** Computing path");
+        //logger.warn("PATH NOT COMPUTED");
         logger.info("** End of Maze Runner");
     }
 }
