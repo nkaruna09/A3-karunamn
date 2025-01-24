@@ -6,9 +6,20 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.*; 
 
+/**
+ * The MazeLoader class is responsible for reading a maze structure
+ * from a text file and converting it into a 2D array of MazeElement objects.
+ */
 public class MazeLoader {
     private List<String> lines = new ArrayList<String>();
 
+    /**
+     * Generates a maze from the given input file.
+     *
+     * @param inputFile The path to the maze file.
+     * @return A 2D array of MazeElement objects representing the maze.
+     * @throws IOException If an error occurs during file reading.
+     */
     public MazeElement[][] generateMaze(String inputFile) throws IOException{
         readFile(inputFile);
 
@@ -39,6 +50,11 @@ public class MazeLoader {
         return maze;
     }
 
+     /**
+     * Reads the maze structure from the specified input file.
+     *
+     * @param inputFile The path to the maze file.
+     */
     private void readFile(String inputFile){
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;

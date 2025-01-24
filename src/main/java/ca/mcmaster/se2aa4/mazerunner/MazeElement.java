@@ -1,5 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+/**
+ * Abstract class representing a generic element within a maze.
+ * Each element is located at a specific row and column in the maze grid.
+ */
 public abstract class MazeElement { 
     private int row, col; 
 

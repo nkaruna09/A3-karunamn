@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner"); 
 
+        // Define command-line options for the input maze file and user path.
         Options options = new Options();
         options.addOption("i", "input", true, "Maze file to read"); 
         options.addOption("p", "path", true, "Verify path for the maze"); 
@@ -23,6 +24,7 @@ public class Main {
         try {
             CommandLine cmd = parser.parse(options, args);
 
+            // Get the input file and user path from the command line.
             String inputFile = cmd.getOptionValue("i");
             String userPath = cmd.getOptionValue("p");
 
@@ -44,6 +46,7 @@ public class Main {
                 String canonicalPath = converter.factorizedToCanonical(userPath);
                 logger.info("Expanded path for validation: " + canonicalPath);
 
+                // Validate the provided path
                 PathChecker pathChecker = new PathChecker(maze); 
 
                 if (pathChecker.isValidPath(canonicalPath)) {
