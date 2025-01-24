@@ -38,14 +38,21 @@ public class Main {
 
             if (userPath != null) {
                 logger.info("**** Validating user path: " + userPath);
-                PathChecker pathChecker = new PathChecker(maze);
-                if (pathChecker.isValidPath(userPath)) {
+                
+                // Convert factorized path to canonical form
+                PathFormConverter converter = new PathFormConverter();
+                String canonicalPath = converter.factorizedToCanonical(userPath);
+                logger.info("Expanded path for validation: " + canonicalPath);
+
+                PathChecker pathChecker = new PathChecker(maze); 
+
+                if (pathChecker.isValidPath(canonicalPath)) {
                     logger.info("The provided path is valid.");
                 } else {
                     logger.warn("The provided path is invalid.");
                 }
             } else {
-                logger.info("**** Solving the maze automatically.");
+                logger.info("**** Computing path.");
                 runner.solveMaze();
                 logger.info("Path: " + runner.getPath());
             }
@@ -53,8 +60,6 @@ public class Main {
         } catch(Exception e) {
             logger.error("An error has occurred", e);
         }
-        //logger.info("**** Computing path");
-        //logger.warn("PATH NOT COMPUTED");
         logger.info("** End of Maze Runner");
     }
 }
