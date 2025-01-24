@@ -57,19 +57,4 @@ public class MazeLoader {
 
     }
 
-    // decide if this should be under Maze or MazeLoader
-    public void printMaze(){
-        for (String line : this.lines){
-            StringBuilder lineLog = new StringBuilder();
-            for (int idx = 0; idx < line.length(); idx++) {
-                if (line.charAt(idx) == '#') {
-                    lineLog.append("WALL "); 
-                } else if (line.charAt(idx) == ' ') {
-                    lineLog.append("PASS ");
-                }
-            }
-            System.out.println(lineLog.toString().trim());
-        }   
-    }
-
 }

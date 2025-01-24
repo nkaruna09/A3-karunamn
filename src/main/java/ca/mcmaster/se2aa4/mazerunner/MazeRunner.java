@@ -52,8 +52,8 @@ public class MazeRunner {
     }
 
     public boolean reachedExit() { 
-        return currentPosition.getRow() == exit.getRow() && currentPosition.getCol() == exit.getCol();
+        return currentPosition.getRow() == exit.getRow() && 
+            currentPosition.getCol() == exit.getCol();
     }
     
-
 }
