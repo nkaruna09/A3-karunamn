@@ -37,15 +37,18 @@ public class MazeLoader {
                 line = new String(new char[maze[0].length]).replace('\0', ' ');
             }
 
-            for (int j = 0; j < cols; j++) { // deal with exception later
-                char cell = line.charAt(j);
-                if (cell == '#') {
-                    maze[i][j] = new Wall(i, j);
-                } else if (cell == ' ') {
+            for (int j = 0; j < cols; j++) { 
+                try { 
+                    char cell = line.charAt(j);
+                    if (cell == '#') {
+                        maze[i][j] = new Wall(i, j);
+                    } else if (cell == ' ') {
+                        maze[i][j] = new Pass(i, j);
+                    } 
+                } catch (Exception e) { 
                     maze[i][j] = new Pass(i, j);
-                } else { 
-                    maze[i][j] = new Pass (i, j); 
                 }
+                
             }
         } 
 
