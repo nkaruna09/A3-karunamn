@@ -43,6 +43,8 @@ public class MazeLoader {
                     maze[i][j] = new Wall(i, j);
                 } else if (cell == ' ') {
                     maze[i][j] = new Pass(i, j);
+                } else { 
+                    maze[i][j] = new Pass (i, j); 
                 }
             }
         } 
@@ -62,7 +64,7 @@ public class MazeLoader {
             while ((line = reader.readLine()) != null) {
                 this.lines.add(line);
             } 
-
+            
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");

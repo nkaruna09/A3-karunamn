@@ -8,17 +8,17 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 public class MazeRunner {
     private Maze maze;
-    private Compass compass; 
+    protected Compass compass; 
     private Position currentPosition;
     private Position exit;
-    private String path;
+    protected StringBuilder path;
 
     public MazeRunner(Maze maze) {
         this.maze = maze; 
         this.currentPosition = maze.getWestEntry();
         this.exit = maze.getEastEntry();
         this.compass = new Compass();
-        this.path = "";
+        this.path = new StringBuilder();
     }
     
     /**
@@ -26,32 +26,36 @@ public class MazeRunner {
      *
      * @return "F" to indicate a forward step.
      */
-    public String stepForward() {
+    public boolean stepForward() {
         int row = currentPosition.getRow();
         int col = currentPosition.getCol();
 
         if (compass.isPointingNorth() && isPassable(row-1, col)) {
             currentPosition = new Position(row-1, col);
+            return true; 
         } else if (compass.isPointingSouth() && isPassable(row+1, col)) {
             currentPosition = new Position(row+1, col);
+            return true; 
         } else if (compass.isPointingEast() && isPassable(row, col+1)) {
             currentPosition = new Position(row, col+1);
+            return true; 
         } else if (compass.isPointingWest() && isPassable(row, col-1)) {
             currentPosition = new Position(row, col-1);
+            return true; 
         } 
 
-        return "F"; 
+        return false; 
     }
 
     /**
      * Solves the maze by repeatedly moving forward until the exit is reached.
      */
-    public void solveMaze() { 
-        String path = ""; 
+    public void solve() { 
         while(!reachedExit()) {
-            String step = stepForward(); 
-            this.path += step; 
-        }
+            if(stepForward()) { 
+                path.append("F"); 
+            }
+       }
 
     }
 
@@ -61,7 +65,7 @@ public class MazeRunner {
      * @return The path as a string.
      */
     public String getPath() {
-        return this.path; 
+        return path.toString(); 
     }
 
     /**

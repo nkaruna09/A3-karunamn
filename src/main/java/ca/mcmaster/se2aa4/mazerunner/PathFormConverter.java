@@ -25,6 +25,7 @@ public class PathFormConverter {
                     factorized.append(count);
                 }
                 factorized.append(path.charAt(i - 1));
+                factorized.append(' ');
                 count = 1;
             }
         }

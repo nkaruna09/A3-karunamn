@@ -36,13 +36,13 @@ public class Main {
             logger.info("East entry: " + maze.getEastEntry());
             logger.info("West entry: " + maze.getWestEntry());
 
-            MazeRunner runner = new MazeRunner(maze);
+            MazeRunner runner = new RightHandAlgorithm(maze);
+            PathFormConverter converter = new PathFormConverter();
 
             if (userPath != null) {
                 logger.info("**** Validating user path: " + userPath);
                 
                 // Convert factorized path to canonical form
-                PathFormConverter converter = new PathFormConverter();
                 String canonicalPath = converter.factorizedToCanonical(userPath);
                 logger.info("Expanded path for validation: " + canonicalPath);
 
@@ -56,8 +56,9 @@ public class Main {
                 }
             } else {
                 logger.info("**** Computing path.");
-                runner.solveMaze();
-                logger.info("Path: " + runner.getPath());
+                runner.solve();
+                String factorizedPath = converter.canonicalToFactorized(runner.getPath().toString());
+                logger.info("Path: " + factorizedPath);
             }
            
         } catch(Exception e) {
