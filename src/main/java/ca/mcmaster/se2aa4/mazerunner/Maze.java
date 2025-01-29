@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Maze {
     
-    private MazeElement[][] maze;
+    private Element[][] maze;
     private Position eastEntry; 
     private Position westEntry; 
 
@@ -31,7 +31,7 @@ public class Maze {
         int rows = maze.length;
 
         for (int i=0; i < rows; i++){
-            if (maze[i][0].getType().equals("Pass")){
+            if (maze[i][0] == Element.PASS){
                 return new Position(i, 0); 
             }
         }
@@ -48,7 +48,7 @@ public class Maze {
         int rows = maze.length;
 
         for (int i=0; i < rows; i++){
-            if (maze[i][maze[0].length-1].getType().equals("Pass")){
+            if (maze[i][maze[0].length-1] == Element.PASS){
                 return new Position(i, maze[0].length-1); 
             }
         }   
@@ -99,7 +99,7 @@ public class Maze {
      * @param col the column index.
      * @return the MazeElement at the specified position.
      */
-    public MazeElement getElement(int row, int col){
+    public Element getElement(int row, int col){
         return this.maze[row][col]; 
     }
 
@@ -113,7 +113,7 @@ public class Maze {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                System.out.print(maze[i][j]);
+                System.out.print(maze[i][j].getSymbol());
             }
             System.out.print("\n"); 
         }

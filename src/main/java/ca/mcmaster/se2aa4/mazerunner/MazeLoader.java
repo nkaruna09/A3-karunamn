@@ -20,14 +20,14 @@ public class MazeLoader {
      * @return A 2D array of MazeElement objects representing the maze.
      * @throws IOException If an error occurs during file reading.
      */
-    public MazeElement[][] generateMaze(String inputFile) throws IOException{
+    public Element[][] generateMaze(String inputFile) throws IOException{
         readFile(inputFile);
 
         int rows = lines.size();
         int cols = lines.get(0).length(); 
 
         // Array[column][row]
-        MazeElement[][] maze = new MazeElement[rows][cols];
+        Element[][] maze = new Element[rows][cols];
 
         for (int i = 0; i < rows; i++) {
             
@@ -41,12 +41,12 @@ public class MazeLoader {
                 try { 
                     char cell = line.charAt(j);
                     if (cell == '#') {
-                        maze[i][j] = new Wall(i, j);
+                        maze[i][j] = Element.WALL;
                     } else if (cell == ' ') {
-                        maze[i][j] = new Pass(i, j);
+                        maze[i][j] = Element.PASS;
                     } 
                 } catch (Exception e) { 
-                    maze[i][j] = new Pass(i, j);
+                    maze[i][j] = Element.PASS;
                 }
                 
             }

@@ -78,7 +78,7 @@ public class MazeRunner {
     private boolean isPassable(int row, int col) {
         return row >= 0 && row < maze.getRowCount() &&
             col >= 0 && col < maze.getColCount() &&
-            maze.getElement(row, col).getType().equals("Pass");
+            maze.getElement(row, col).equals(Element.PASS);
     }
 
     /**
