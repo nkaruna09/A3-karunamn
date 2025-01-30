@@ -37,6 +37,12 @@ public class PathChecker {
                 } else {
                     return false; 
                 }
+            } else if (step == 'L') {
+                compass.turnLeft(); 
+            } else if (step == 'R') {
+                compass.turnRight(); 
+            } else {
+                continue;
             }
         }
 
