@@ -36,7 +36,8 @@ public class Main {
             logger.info("East entry: " + maze.getEastEntry());
             logger.info("West entry: " + maze.getWestEntry());
 
-            MazeRunner runner = new RightHandAlgorithm(maze);
+            MazeSolver rightHandSolver = new RightHandAlgorithm();
+            MazeRunner runner = new MazeRunner(maze, rightHandSolver);
             PathFormConverter converter = new PathFormConverter();
 
             if (userPath != null) {

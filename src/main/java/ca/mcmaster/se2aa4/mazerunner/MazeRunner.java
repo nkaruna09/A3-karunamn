@@ -7,18 +7,20 @@ package ca.mcmaster.se2aa4.mazerunner;
  */
 
 public class MazeRunner {
-    private Maze maze;
+    protected Maze maze;
     protected Compass compass; 
-    private Position currentPosition;
-    private Position exit;
+    protected Position currentPosition;
+    protected Position exit;
     protected StringBuilder path;
+    private MazeSolver solver; 
 
-    public MazeRunner(Maze maze) {
+    public MazeRunner(Maze maze, MazeSolver solver) {
         this.maze = maze; 
         this.currentPosition = maze.getWestEntry();
         this.exit = maze.getEastEntry();
         this.compass = new Compass();
         this.path = new StringBuilder();
+        this.solver = solver; 
     }
     
     /**
@@ -51,11 +53,11 @@ public class MazeRunner {
      * Solves the maze by repeatedly moving forward until the exit is reached.
      */
     public void solve() { 
-        while(!reachedExit()) {
-            if(stepForward()) { 
-                path.append("F"); 
-            }
-       }
+        if (solver != null) { 
+            solver.solve(this); 
+        } else { 
+            throw new IllegalStateException("No solver has been set.");
+        }
 
     }
 
