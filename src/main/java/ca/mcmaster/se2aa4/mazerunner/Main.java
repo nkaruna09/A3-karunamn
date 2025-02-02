@@ -12,29 +12,29 @@ public class Main {
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-
-        InputHandler inputHandler = new InputHandler(args);
-
-        if (!inputHandler.isValid()) {
-            logger.error("Invalid command-line arguments. Exiting.");
-            return;
-        }
-
-        String inputFile = inputHandler.getInputFile();
-        String userPath = inputHandler.getUserPath();
-
         try {
+            // Parse the command-line arguments and get the configuration
+            Configuration config = Configuration.fromArgs(args);
 
-            Maze maze = new Maze(inputFile);
-            maze.printMaze(); 
+            // Create a Maze object with the input file
+            Maze maze = new Maze(config.getInputFile());
 
+            // Start solving the maze
             MazeSolver rightHandSolver = new RightHandAlgorithm();
-            MazeRunner runner = new MazeRunner(maze, rightHandSolver, userPath);
-            String output = runner.solve(); 
-            System.out.println(output); 
-           
-        } catch(Exception e) {
-            logger.error("An error has occurred", e);
+            MazeRunner runner = new MazeRunner(maze, rightHandSolver, config.getInputPath());
+            String output = runner.solve();
+
+            // Print the output of the maze-solving process
+            System.out.println(output);
+
+        } catch (ParseException pe) {
+            logger.error("Command-line argument error: " + pe.getMessage());
+            System.exit(1);
+        } catch (IllegalArgumentException e) {
+            logger.error(e.getMessage());
+            System.exit(1);
+        } catch (Exception e) {
+            logger.error("An error occurred: ", e);
         }
         
     }
