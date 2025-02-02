@@ -14,20 +14,17 @@ public class Main {
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner"); 
 
-        // Define command-line options for the input maze file and user path.
-        Options options = new Options();
-        options.addOption("i", "input", true, "Maze file to read"); 
-        options.addOption("p", "path", true, "Verify path for the maze"); 
+        InputHandler inputHandler = new InputHandler(args);
 
-        CommandLineParser parser = new DefaultParser();
+        if (!inputHandler.isValid()) {
+            logger.error("Invalid command-line arguments. Exiting.");
+            return;
+        }
+
+        String inputFile = inputHandler.getInputFile();
+        String userPath = inputHandler.getUserPath();
 
         try {
-            CommandLine cmd = parser.parse(options, args);
-
-            // Get the input file and user path from the command line.
-            String inputFile = cmd.getOptionValue("i");
-            String userPath = cmd.getOptionValue("p");
-
             logger.info("**** Reading the maze from file: "+ inputFile); 
 
             Maze maze = new Maze(inputFile);
