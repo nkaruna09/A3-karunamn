@@ -47,6 +47,12 @@ public class PathFormConverter {
         int i = 0;
         while (i < path.length()) {
             char c = path.charAt(i);
+
+            if (Character.isWhitespace(c)) {
+                i++;
+                continue;
+            }
+
             if (Character.isDigit(c)) {
                 int count = Character.getNumericValue(c);
                 char instruction = path.charAt(i + 1);

@@ -12,7 +12,6 @@ public class Main {
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        logger.info("** Starting Maze Runner"); 
 
         InputHandler inputHandler = new InputHandler(args);
 
@@ -25,7 +24,6 @@ public class Main {
         String userPath = inputHandler.getUserPath();
 
         try {
-            logger.info("**** Reading the maze from file: "+ inputFile); 
 
             Maze maze = new Maze(inputFile);
             maze.printMaze(); 
@@ -38,6 +36,6 @@ public class Main {
         } catch(Exception e) {
             logger.error("An error has occurred", e);
         }
-        logger.info("** End of Maze Runner");
+        
     }
 }
