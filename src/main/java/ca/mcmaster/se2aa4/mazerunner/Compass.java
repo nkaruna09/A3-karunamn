@@ -6,87 +6,54 @@ package ca.mcmaster.se2aa4.mazerunner;
  */
 public class Compass {
 
-    // The current direction the compass is pointing ("N", "S", "E", "W").
-    private String direction; 
+    private Direction direction; 
 
     public Compass() { // Constructor
-        this.direction = "E"; 
+        this.direction = Direction.E; 
     }
 
     /**
-     * Checks if the compass is pointing North.
+     * Checks if the compass is pointing in a specific direction.
      * 
-     * @return true if the compass is pointing North, false otherwise.
+     * @param dir the direction to check against.
+     * @return true if the compass is pointing in the given direction, false otherwise.
      */
-    public boolean isPointingNorth() {
-       return direction.equals("N");
+    public boolean isPointing(Direction dir) {
+       return this.direction == dir; 
     }
 
-    /**
-     * Checks if the compass is pointing South.
-     * 
-     * @return true if the compass is pointing South, false otherwise.
-     */
-    public boolean isPointingSouth() {
-        return direction.equals("S");
-    }
-
-    /**
-     * Checks if the compass is pointing East.
-     * 
-     * @return true if the compass is pointing East, false otherwise.
-     */
-    public boolean isPointingEast() {
-        return direction.equals("E");
-    }  
-
-    /**
-     * Checks if the compass is pointing West.
-     * 
-     * @return true if the compass is pointing West, false otherwise.
-     */
-    public boolean isPointingWest() {
-        return direction.equals("W");
-    }
-
-    /**
-     * Turns the compass 90 degrees to the left (counterclockwise).
-     * Updates the direction accordingly:
-     * - "N" -> "W"
-     * - "W" -> "S"
-     * - "S" -> "E"
-     * - "E" -> "N"
+    
+    /** Turns the compass 90 degrees to the left (counterclockwise).
      */
     public void turnLeft() {
-        if (direction.equals("N")) {
-            direction = "W";
-        } else if (direction.equals("W")) {
-            direction = "S";
-        } else if (direction.equals("S")) {
-            direction = "E";
-        } else { // direction is "E"
-            direction = "N";
+        if (this.direction == Direction.N) {
+            this.direction = Direction.W;
+        } else if (this.direction == Direction.W) {
+            this.direction = Direction.S;
+        } else if (this.direction == Direction.S) {
+            this.direction = Direction.E;
+        } else {
+            this.direction = Direction.N;
         }
     }
 
     /**
      * Turns the compass 90 degrees to the right (clockwise).
-     * Updates the direction accordingly:
-     * - "N" -> "E"
-     * - "E" -> "S"
-     * - "S" -> "W"
-     * - "W" -> "N"
      */
     public void turnRight() {
-        if (direction.equals("N")) {
-            direction = "E";
-        } else if (direction.equals("E")) {
-            direction = "S";
-        } else if (direction.equals("S")) {
-            direction = "W";
-        } else { // direction is "W"
-            direction = "N";
+        if (this.direction == Direction.N) {
+            this.direction = Direction.E;
+        } else if (this.direction == Direction.E) {
+            this.direction = Direction.S;
+        } else if (this.direction == Direction.S) {
+            this.direction = Direction.W;
+        } else {
+            this.direction = Direction.N;
         }
+    }
+
+    public Direction getDirection() {
+        return this.direction;
     }
 
     /**

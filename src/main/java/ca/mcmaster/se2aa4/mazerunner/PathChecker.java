@@ -18,6 +18,10 @@ public class PathChecker {
      * @return true if the path is valid, false otherwise.
      */
     public boolean isValidPath(String userPath) { 
+        return checkPath(maze.getWestEntry(), userPath) || checkPath(maze.getEastEntry(), userPath);
+    } 
+
+    public boolean checkPath(Position startPosition, String userPath) {
         Position currentPosition = maze.getWestEntry(); 
         Compass compass = new Compass(); 
 
@@ -25,14 +29,15 @@ public class PathChecker {
             int row = currentPosition.getRow();
             int col = currentPosition.getCol();
 
+            Direction dir = compass.getDirection();
             if (step == 'F'){
-                if (compass.isPointingNorth() && isPassable(row-1, col)) {
+                if (dir == Direction.N && isPassable(row-1, col)) {
                     currentPosition = new Position(row-1, col);
-                } else if (compass.isPointingSouth() && isPassable(row+1, col)) {
+                } else if (dir == Direction.S && isPassable(row+1, col)) {
                     currentPosition = new Position(row+1, col);
-                } else if (compass.isPointingEast() && isPassable(row, col+1)) {
+                } else if (dir == Direction.E && isPassable(row, col+1)) {
                     currentPosition = new Position(row, col+1);
-                } else if (compass.isPointingWest() && isPassable(row, col-1)) {
+                } else if (dir == Direction.W && isPassable(row, col-1)) {
                     currentPosition = new Position(row, col-1);
                 } else {
                     return false; 

@@ -32,16 +32,18 @@ public class MazeRunner {
         int row = currentPosition.getRow();
         int col = currentPosition.getCol();
 
-        if (compass.isPointingNorth() && isPassable(row-1, col)) {
+        Direction dir = compass.getDirection(); 
+
+        if (dir == Direction.N && isPassable(row-1, col)) {
             currentPosition = new Position(row-1, col);
             return true; 
-        } else if (compass.isPointingSouth() && isPassable(row+1, col)) {
+        } else if (dir == Direction.S && isPassable(row+1, col)) {
             currentPosition = new Position(row+1, col);
             return true; 
-        } else if (compass.isPointingEast() && isPassable(row, col+1)) {
+        } else if (dir == Direction.E && isPassable(row, col+1)) {
             currentPosition = new Position(row, col+1);
             return true; 
-        } else if (compass.isPointingWest() && isPassable(row, col-1)) {
+        } else if (dir == Direction.W && isPassable(row, col-1)) {
             currentPosition = new Position(row, col-1);
             return true; 
         } 
