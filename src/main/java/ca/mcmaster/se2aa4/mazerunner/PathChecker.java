@@ -11,12 +11,6 @@ public class PathChecker {
         this.maze = maze; 
     }
 
-    /**
-     * Checks whether a given user path is valid within the maze.
-     * 
-     * @param userPath A string representing the sequence of moves ('F' for forward).
-     * @return true if the path is valid, false otherwise.
-     */
     public boolean isValidPath(String userPath) { 
         return checkPath(maze.getWestEntry(), userPath) || checkPath(maze.getEastEntry(), userPath);
     } 
