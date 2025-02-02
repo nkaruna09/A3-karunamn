@@ -29,35 +29,11 @@ public class Main {
 
             Maze maze = new Maze(inputFile);
             maze.printMaze(); 
-            
-            logger.info("East entry: " + maze.getEastEntry());
-            logger.info("West entry: " + maze.getWestEntry());
 
             MazeSolver rightHandSolver = new RightHandAlgorithm();
-            MazeRunner runner = new MazeRunner(maze, rightHandSolver);
-            PathFormConverter converter = new PathFormConverter();
-
-            if (userPath != null) {
-                logger.info("**** Validating user path: " + userPath);
-                
-                // Convert factorized path to canonical form
-                String canonicalPath = converter.factorizedToCanonical(userPath);
-                logger.info("Expanded path for validation: " + canonicalPath);
-
-                // Validate the provided path
-                PathChecker pathChecker = new PathChecker(maze); 
-
-                if (pathChecker.isValidPath(canonicalPath)) {
-                    logger.info("The provided path is valid.");
-                } else {
-                    logger.warn("The provided path is invalid.");
-                }
-            } else {
-                logger.info("**** Computing path.");
-                runner.solve();
-                String factorizedPath = converter.canonicalToFactorized(runner.getPath().toString());
-                logger.info("Path: " + factorizedPath);
-            }
+            MazeRunner runner = new MazeRunner(maze, rightHandSolver, userPath);
+            String output = runner.solve(); 
+            System.out.println(output); 
            
         } catch(Exception e) {
             logger.error("An error has occurred", e);

@@ -8,8 +8,8 @@ public class Compass {
 
     private Direction direction; 
 
-    public Compass() { // Constructor
-        this.direction = Direction.E; 
+    public Compass(Direction start) { // Constructor
+        this.direction = start; 
     }
 
     /**
@@ -56,13 +56,4 @@ public class Compass {
         return this.direction;
     }
 
-    /**
-     * Returns a string representation of the compass, including its current direction.
-     * 
-     * @return a string indicating the direction the compass is pointing.
-     */
-    @Override
-    public String toString() {
-        return "Compass is pointing " + direction;
-    }
 }

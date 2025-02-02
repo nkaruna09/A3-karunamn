@@ -12,53 +12,31 @@ public class PathChecker {
     }
 
     public boolean isValidPath(String userPath) { 
-        return checkPath(maze.getWestEntry(), userPath) || checkPath(maze.getEastEntry(), userPath);
-    } 
+        return checkPath(maze.getWestEntry(), Direction.E, userPath) || checkPath(maze.getEastEntry(), Direction.W, userPath);
+    }
 
-    public boolean checkPath(Position startPosition, String userPath) {
-        Position currentPosition = maze.getWestEntry(); 
-        Compass compass = new Compass(); 
+    public boolean checkPath(Position startPosition, Direction startDirection, String userPath) {
+        Position currentPosition = startPosition; 
+        Compass compass = new Compass(startDirection); 
 
+        // Iterate through the user path steps
         for (char step : userPath.toCharArray()) {
-            int row = currentPosition.getRow();
-            int col = currentPosition.getCol();
-
-            Direction dir = compass.getDirection();
-            if (step == 'F'){
-                if (dir == Direction.N && isPassable(row-1, col)) {
-                    currentPosition = new Position(row-1, col);
-                } else if (dir == Direction.S && isPassable(row+1, col)) {
-                    currentPosition = new Position(row+1, col);
-                } else if (dir == Direction.E && isPassable(row, col+1)) {
-                    currentPosition = new Position(row, col+1);
-                } else if (dir == Direction.W && isPassable(row, col-1)) {
-                    currentPosition = new Position(row, col-1);
-                } else {
-                    return false; 
+            // Handle each step in the path
+            if (step == 'F') { // Step forward
+                if (!currentPosition.stepForward(compass, maze)) {
+                    return false; // Invalid step (either out of bounds or into a wall)
                 }
-            } else if (step == 'L') {
-                compass.turnLeft(); 
-            } else if (step == 'R') {
-                compass.turnRight(); 
+            } else if (step == 'L') { // Turn left
+                compass.turnLeft();
+            } else if (step == 'R') { // Turn right
+                compass.turnRight();
             } else {
-                continue;
+                return false; // Invalid step (anything other than 'F', 'L', or 'R')
             }
         }
 
+        // If we finish the path with no issues, the path is valid
         return true;
     }
 
-    /**
-     * Checks whether a given cell in the maze is passable.
-     * 
-     * @param row The row index of the cell to check.
-     * @param col The column index of the cell to check.
-     * @return true if the cell is within bounds and is a "Pass" element, false otherwise.
-     */
-    private boolean isPassable(int row, int col) {
-        return row >= 0 && row < maze.getRowCount() &&
-            col >= 0 && col < maze.getColCount() &&
-            maze.getElement(row, col).equals(Element.PASS);
-    }
-
-}
+} 
