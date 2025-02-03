@@ -23,7 +23,8 @@ public class Compass {
     }
 
     
-    /** Turns the compass 90 degrees to the left (counterclockwise).
+    /** 
+     * Turns the compass 90 degrees to the left (counterclockwise).
      */
     public void turnLeft() {
         if (this.direction == Direction.N) {

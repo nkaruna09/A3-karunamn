@@ -10,7 +10,7 @@ import org.apache.commons.cli.*;
 public class Main { 
 
     private static final Logger logger = LogManager.getLogger();
-
+ 
     public static void main(String[] args) {
         try {
             Configuration config = Configuration.fromArgs(args);
