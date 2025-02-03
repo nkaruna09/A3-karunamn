@@ -13,8 +13,4 @@ public enum Element {
         return this.symbol; 
     }
 
-    @Override
-    public String toString(){
-        return Character.toString(this.symbol);
-    }
 }

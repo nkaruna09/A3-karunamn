@@ -1,40 +1,39 @@
+
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class RightHandAlgorithm implements MazeSolver { 
-
-    public RightHandAlgorithm() { }
+public class RightHandAlgorithm implements Algorithm {
 
     @Override
-    public void solveMaze(MazeRunner runner) { 
-        StringBuilder path = runner.path;
+    public void solveMaze(MazeSolver solver) {
+        StringBuilder path = solver.getPath();
+        Compass compass = solver.getCompass();
 
-        // Check if the exit is reached in the maze
-        while (!runner.reachedExit()) {
-
+        // Continue until the exit is reached
+        while (!solver.reachedExit()) {
             // Turn right first
-            runner.compass.turnRight();
-            if (runner.stepForward()) {
+            compass.turnRight();
+            if (solver.stepForward()) {
                 path.append("R").append("F");
                 continue;
             }
 
-            // If not possible, undo the right turn and move forward
-            runner.compass.turnLeft(); // Undo right turn
-            if (runner.stepForward()) {
+            // If we can't move forward, undo the right turn and move forward
+            compass.turnLeft(); // Undo the right turn
+            if (solver.stepForward()) {
                 path.append("F");
                 continue;
             }
 
-            // If moving forward is not possible, turn left
-            runner.compass.turnLeft();
-            if (runner.stepForward()) {
+            // If moving forward isn't possible, turn left
+            compass.turnLeft();
+            if (solver.stepForward()) {
                 path.append("L").append("F");
                 continue;
             }
 
-            // If all else fails, turn around (left twice) and move forward
-            runner.compass.turnLeft();
-            if (runner.stepForward()) {
+            // If all else fails, turn around (turn left twice) and move forward
+            compass.turnLeft();
+            if (solver.stepForward()) {
                 path.append("L").append("L").append("F");
                 continue;
             }

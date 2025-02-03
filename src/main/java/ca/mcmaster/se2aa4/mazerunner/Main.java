@@ -13,20 +13,11 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            // Parse the command-line arguments and get the configuration
             Configuration config = Configuration.fromArgs(args);
-
-            // Create a Maze object with the input file
             Maze maze = new Maze(config.getInputFile());
-
-            // Start solving the maze
-            MazeSolver rightHandSolver = new RightHandAlgorithm();
-            MazeRunner runner = new MazeRunner(maze, rightHandSolver, config.getInputPath());
+            MazeRunner runner = new MazeRunner(maze, config.getInputPath());
             String output = runner.solve();
-
-            // Print the output of the maze-solving process
             System.out.println(output);
-
         } catch (ParseException pe) {
             logger.error("Command-line argument error: " + pe.getMessage());
             System.exit(1);

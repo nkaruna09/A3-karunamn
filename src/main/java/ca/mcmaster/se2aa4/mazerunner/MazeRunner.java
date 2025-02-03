@@ -1,54 +1,27 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import java.util.*;
+public class MazeRunner { 
+    protected Maze maze; 
+    protected String userPath; 
 
-public class MazeRunner {
-    protected Maze maze;
-    protected Compass compass; 
-    protected Position currentPosition;
-    protected Position exit;
-    protected StringBuilder path;
-    private PathFormConverter converter;
-    private MazeSolver solver; 
-    private PathChecker pathChecker; 
-    private String userPath;
-
-    public MazeRunner(Maze maze, MazeSolver solver, String userPath) {
+    public MazeRunner(Maze maze, String userPath) { 
         this.maze = maze; 
-        this.compass = new Compass(Direction.E); // Starting direction is East
-        this.currentPosition = maze.getWestEntry(); // Starting position at West Entry
-        this.exit = maze.getEastEntry(); // Exit at East Entry
-        this.solver = solver; 
-        this.pathChecker = new PathChecker(maze);
-        this.userPath = userPath;
-        this.path = new StringBuilder();  
-        this.converter = new PathFormConverter();
+        this.userPath = userPath; 
+        
+    }
+
+    public MazeRunner(Maze maze) { 
+        this.maze = maze; 
+        this.userPath = null; 
     }
 
     public String solve() { 
         if (this.userPath == null) { 
-            solver.solveMaze(this); // Solve the maze using the solver
-            return converter.canonicalToFactorized(path.toString()); 
-        } else {  
-            userPath = converter.factorizedToCanonical(userPath); 
-            if (pathChecker.isValidPath(this.userPath)) {
-                return "correct path";  // If the user path is valid
-            } else { 
-                return "incorrect path";  // If the user path is invalid
-            }
+            MazeSolver solver = new MazeSolver(maze); 
+            return solver.solve();  
+        } else { 
+            MazeChecker checker = new MazeChecker(maze, userPath); 
+            return checker.solve(); 
         }
-    }
-
-    public boolean stepForward() {
-        return currentPosition.stepForward(this.compass, this.maze);
-    }
-    
-    public boolean reachedExit() { 
-        return currentPosition.getRow() == exit.getRow() && 
-            currentPosition.getCol() == exit.getCol();
-    }
-
-    public String getPath() {
-        return path.toString(); // Return the solved path (or empty if not solved)
     }
 }

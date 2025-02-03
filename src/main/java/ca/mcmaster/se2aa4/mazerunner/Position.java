@@ -3,9 +3,8 @@ package ca.mcmaster.se2aa4.mazerunner;
 public class Position {
     private int row;
     private int col;
-    private Position exit; 
 
-    public Position(int row, int col) { // Consctructor 
+    public Position(int row, int col) { // Constructor 
         this.row = row;
         this.col = col;
     }
@@ -47,8 +46,15 @@ public class Position {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Position position = (Position) obj;
+        return row == position.row && col == position.col;
+    }
+
+    @Override
     public String toString() {
         return "(" + row + ", " + col + ")";
     }
-
 }
