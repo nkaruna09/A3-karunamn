@@ -1,3 +1,11 @@
+/**
+ * File: Maze.java
+ * Author: Nithika Karunamoorthy
+ * Description: This class represents a maze, which is stored as a 2D array of `Element` values.
+ * It includes methods for loading the maze from a file, retrieving maze dimensions, 
+ * finding the east and west entry points, and printing the maze to the console.
+ */
+
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.*; 
@@ -9,9 +17,14 @@ public class Maze {
     private Position eastEntry; 
     private Position westEntry; 
 
+     /**
+     * Constructor to initialize the maze from an input file.
+     * The maze is loaded, and the east and west entries are located.
+     */ 
+
     public Maze(String inputFile) throws IOException { // Constructor 
         MazeLoader loader = new MazeLoader();
-        this.maze = loader.generateMaze(inputFile); 
+        this.maze = loader.generateMaze(inputFile); // Generate maze from input file
         this.eastEntry = findEastEntry(); 
         this.westEntry = findWestEntry(); 
     }
@@ -32,10 +45,16 @@ public class Maze {
         return this.maze[0].length; 
     }
 
+    /**
+     * Returns the element (WALL or PASS) at the specified row and column.
+     */ 
     public Element getElement(int row, int col){
         return this.maze[row][col]; 
     }
 
+    /**
+     * Searches for the west entry (first PASS element in the leftmost column) and returns the position.
+     */
     private Position findWestEntry(){
         int rows = maze.length;
 
@@ -48,6 +67,9 @@ public class Maze {
         return null;
     }
 
+    /**
+     * Searches for the east entry (first PASS element in the rightmost column) and returns the position.
+     */ 
     private Position findEastEntry(){
         int rows = maze.length;
 
@@ -60,6 +82,9 @@ public class Maze {
         return null;
     }
 
+    /**
+     * Prints the maze to the console using the symbol for each element (WALL or PASS).
+     */
     public void printMaze(){
         int rows = maze.length;
         int cols = maze[0].length;
