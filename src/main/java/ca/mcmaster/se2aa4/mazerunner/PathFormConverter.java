@@ -48,19 +48,31 @@ public class PathFormConverter {
         while (i < path.length()) {
             char c = path.charAt(i);
 
+            // Skip any whitespace
             if (Character.isWhitespace(c)) {
                 i++;
                 continue;
             }
 
+            // If the character is a digit
             if (Character.isDigit(c)) {
-                int count = Character.getNumericValue(c);
-                char instruction = path.charAt(i + 1);
+                int count = 0;
+                
+                // Handle the multi-digit number
+                while (i < path.length() && Character.isDigit(path.charAt(i))) {
+                    count = count * 10 + Character.getNumericValue(path.charAt(i));
+                    i++;
+                }
+                
+                char instruction = path.charAt(i);
+                
+                // Append the instruction count times
                 for (int j = 0; j < count; j++) {
                     canonical.append(instruction);
                 }
-                i += 2;
+                i++;  // Skip the instruction character
             } else {
+                // If it's a single character instruction, append it
                 canonical.append(c);
                 i++;
             }
