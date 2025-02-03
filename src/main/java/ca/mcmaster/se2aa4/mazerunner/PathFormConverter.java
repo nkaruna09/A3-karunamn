@@ -10,9 +10,6 @@ public class PathFormConverter {
 
     /**
      * Converts a canonical path to its factorized form.
-     * 
-     * @param path The canonical path string 
-     * @return The factorized path string 
      */
     public String canonicalToFactorized(String path) {
         StringBuilder factorized = new StringBuilder();
@@ -38,24 +35,19 @@ public class PathFormConverter {
 
     /**
      * Converts a factorized path back to its canonical form.
-     * 
-     * @param path The factorized path string 
-     * @return The canonical path string 
      */
     public String factorizedToCanonical(String path) {
         StringBuilder canonical = new StringBuilder();
         int i = 0;
         while (i < path.length()) {
             char c = path.charAt(i);
-
-            // Skip any whitespace
-            if (Character.isWhitespace(c)) {
+            
+            if (Character.isWhitespace(c)) { // Skip any whitespace
                 i++;
                 continue;
             }
-
-            // If the character is a digit
-            if (Character.isDigit(c)) {
+    
+            if (Character.isDigit(c)) { // If the character is a digit
                 int count = 0;
                 
                 // Handle the multi-digit number

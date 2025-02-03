@@ -28,12 +28,6 @@ public class Compass {
         this.direction = initialDirection; 
     }
 
-    /**
-     * Checks if the compass is pointing in a specific direction.
-     * 
-     * @param dir the direction to check against.
-     * @return true if the compass is pointing in the given direction, false otherwise.
-     */
     public boolean isPointing(Direction dir) {
        return this.direction == dir; 
     }

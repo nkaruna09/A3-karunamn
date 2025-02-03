@@ -26,25 +26,21 @@ public class MazeChecker implements MazeTask {
     public boolean checkPath(Position start, Direction startDirection, Position exit) {
         Position currentPosition = new Position(start.getRow(), start.getCol());
         Compass compass = new Compass(startDirection);
-        userPath = this.userPath;
 
-        // Iterate through the user path steps
-        for (char step : userPath.toCharArray()) {
-            // Handle each step in the path
-            if (step == 'F') { // Step forward
+        for (char step : userPath.toCharArray()) { // Iterate through the user path steps
+            if (step == 'F') { 
                 if (!currentPosition.stepForward(compass, maze)) {
                     return false; // Invalid step (either out of bounds or into a wall)
                 }
-            } else if (step == 'L') { // Turn left
+            } else if (step == 'L') { 
                 compass.turnLeft();
-            } else if (step == 'R') { // Turn right
+            } else if (step == 'R') { 
                 compass.turnRight();
             } else {
                 return false; // Invalid step (anything other than 'F', 'L', or 'R')
             }
         }
 
-        // If we finish the path with no issues, the path is valid
-        return currentPosition.equals(exit); 
+        return currentPosition.equals(exit); // Check if final position is at the exit 
     }
 }

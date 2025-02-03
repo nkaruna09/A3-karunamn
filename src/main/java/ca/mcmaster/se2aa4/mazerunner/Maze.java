@@ -16,6 +16,26 @@ public class Maze {
         this.westEntry = findWestEntry(); 
     }
 
+    public Position getEastEntry(){
+        return this.eastEntry; 
+    }
+
+    public Position getWestEntry(){
+        return this.westEntry; 
+    }
+
+    public int getRowCount(){
+        return this.maze.length; 
+    }
+
+    public int getColCount(){
+        return this.maze[0].length; 
+    }
+
+    public Element getElement(int row, int col){
+        return this.maze[row][col]; 
+    }
+
     private Position findWestEntry(){
         int rows = maze.length;
 
@@ -38,26 +58,6 @@ public class Maze {
         }   
 
         return null;
-    }
-
-    public Position getEastEntry(){
-        return this.eastEntry; 
-    }
-
-    public Position getWestEntry(){
-        return this.westEntry; 
-    }
-
-    public int getRowCount(){
-        return this.maze.length; 
-    }
-
-    public int getColCount(){
-        return this.maze[0].length; 
-    }
-
-    public Element getElement(int row, int col){
-        return this.maze[row][col]; 
     }
 
     public void printMaze(){

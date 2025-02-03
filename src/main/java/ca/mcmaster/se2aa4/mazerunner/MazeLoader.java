@@ -15,10 +15,6 @@ public class MazeLoader {
 
     /**
      * Generates a maze from the given input file.
-     *
-     * @param inputFile The path to the maze file.
-     * @return A 2D array of MazeElement objects representing the maze.
-     * @throws IOException If an error occurs during file reading.
      */
     public Element[][] generateMaze(String inputFile) throws IOException{
         readFile(inputFile);
@@ -26,15 +22,13 @@ public class MazeLoader {
         int rows = lines.size();
         int cols = lines.get(0).length(); 
 
-        // Array[column][row]
         Element[][] maze = new Element[rows][cols];
 
         for (int i = 0; i < rows; i++) {
-            
-            String line = lines.get(i); 
+            String line = lines.get(i);
 
             if(line.isEmpty()){
-                line = new String(new char[maze[0].length]).replace('\0', ' ');
+                line = " ".repeat(cols);
             }
 
             for (int j = 0; j < cols; j++) { 
@@ -57,17 +51,13 @@ public class MazeLoader {
 
      /**
      * Reads the maze structure from the specified input file.
-     *
-     * @param inputFile The path to the maze file.
      */
     private void readFile(String inputFile){
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;
-
             while ((line = reader.readLine()) != null) {
                 this.lines.add(line);
             } 
-            
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
