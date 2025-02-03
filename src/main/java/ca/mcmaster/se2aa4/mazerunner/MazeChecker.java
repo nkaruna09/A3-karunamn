@@ -20,12 +20,12 @@ public class MazeChecker extends MazeRunner {
 
     public boolean isValidPath() {
         // Check path from both sides
-        return checkPath(maze.getWestEntry(), Direction.E) || 
-               checkPath(maze.getEastEntry(), Direction.W);
+        return checkPath(maze.getWestEntry(), Direction.E, maze.getEastEntry()) || 
+               checkPath(maze.getEastEntry(), Direction.W, maze.getWestEntry());
     }
 
-    public boolean checkPath(Position startPosition, Direction startDirection) {
-        Position currentPosition = startPosition;
+    public boolean checkPath(Position startPosition, Direction startDirection, Position endPosition) {
+        Position currentPosition = new Position(startPosition.getRow(), startPosition.getCol());
         Compass compass = new Compass(startDirection);
         userPath = this.userPath;
 
@@ -46,7 +46,6 @@ public class MazeChecker extends MazeRunner {
         }
 
         // If we finish the path with no issues, the path is valid
-        return currentPosition.equals(maze.getWestEntry()) || 
-               currentPosition.equals(maze.getEastEntry());
+        return currentPosition.equals(endPosition); 
     }
 }
