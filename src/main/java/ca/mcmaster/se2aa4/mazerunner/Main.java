@@ -15,7 +15,8 @@ public class Main {
         try {
             Configuration config = Configuration.fromArgs(args);
             Maze maze = new Maze(config.getInputFile());
-            MazeRunner runner = new MazeRunner(maze, config.getInputPath());
+            Algorithm algorithm = new RightHandAlgorithm();
+            MazeRunner runner = new MazeRunner(maze, config.getInputPath(), algorithm);
             String output = runner.solve();
             System.out.println(output);
         } catch (ParseException pe) {

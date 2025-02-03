@@ -1,5 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 public interface Algorithm {
-    void solveMaze(MazeSolver solver);  // Method to solve the maze
+    public String solveMaze(Maze maze, Position start, Position exit);  // Method to solve the maze
 }
