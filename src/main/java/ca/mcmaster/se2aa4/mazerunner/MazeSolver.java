@@ -1,10 +1,13 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class MazeSolver extends MazeRunner {
+public class MazeSolver implements MazeTask {
+    private Maze maze; 
+    private Algorithm algorithm;
     private PathFormConverter converter; // Path converter
 
     public MazeSolver(Maze maze, Algorithm algorithm) {
-        super(maze, algorithm);
+        this.maze = maze; 
+        this.algorithm = algorithm;
         this.converter = new PathFormConverter(); // Initialize path converter
     }
 

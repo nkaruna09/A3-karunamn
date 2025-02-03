@@ -1,21 +1,20 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class MazeChecker extends MazeRunner { 
+public class MazeChecker implements MazeTask { 
+    private Maze maze; 
+    private String userPath;
     private PathFormConverter converter;
 
     public MazeChecker(Maze maze, String userPath) { 
-        super(maze, userPath); 
+        this.maze = maze;
+        this.userPath = userPath;
         this.converter = new PathFormConverter();
         this.userPath = converter.factorizedToCanonical(userPath);
     }
 
     @Override
     public String solve() { 
-        if (isValidPath()) { 
-            return "correct path"; 
-        } else { 
-            return "incorrect path"; 
-        }
+       return isValidPath() ? "correct path" : "incorrect path";
     }
 
     public boolean isValidPath() {
