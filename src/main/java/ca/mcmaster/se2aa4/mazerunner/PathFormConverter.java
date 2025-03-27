@@ -16,6 +16,10 @@ public class PathFormConverter {
      * Converts a canonical path to its factorized form.
      */
     public String canonicalToFactorized(String path) {
+        if (path == null || path.isEmpty()) {
+            return "";
+        }
+
         StringBuilder factorized = new StringBuilder();
         int count = 1; // To count consecutive similar steps
         for (int i = 1; i < path.length(); i++) { // Iterate through the path starting from the second character
@@ -44,6 +48,9 @@ public class PathFormConverter {
      * Converts a factorized path back to its canonical form.
      */
     public String factorizedToCanonical(String path) {
+        if (path == null || path.isEmpty()) {
+            return "";
+        }
         StringBuilder canonical = new StringBuilder();
         int i = 0;
         while (i < path.length()) { // Iterate through the factorized path
