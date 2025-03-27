@@ -26,7 +26,7 @@ public class MazeRunnerTest {
     void testCheckPath_correct() throws IOException {
         File tempFile = createTempMazeFile("   ");
         Maze maze = new Maze(tempFile.getAbsolutePath());
-        MazeRunner runner = new MazeRunner(maze, "2F", new RightHandAlgorithm()); // Algorithm not used here
+        MazeRunner runner = new MazeRunner(maze, "2F", new RightHandAlgorithm()); 
         assertEquals("correct path", runner.solve());
     }
 
@@ -34,7 +34,7 @@ public class MazeRunnerTest {
     void testCheckPath_incorrect() throws IOException {
         File tempFile = createTempMazeFile("   ");
         Maze maze = new Maze(tempFile.getAbsolutePath());
-        MazeRunner runner = new MazeRunner(maze, "F", new RightHandAlgorithm()); // Algorithm not used here
+        MazeRunner runner = new MazeRunner(maze, "F", new RightHandAlgorithm()); 
         assertEquals("incorrect path", runner.solve());
     }
 
