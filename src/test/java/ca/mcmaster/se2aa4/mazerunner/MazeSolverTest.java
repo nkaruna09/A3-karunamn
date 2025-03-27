@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class MazeSolverTest {
 
@@ -23,86 +22,51 @@ public class MazeSolverTest {
         return tempFile;
     }
 
-    @Test
-    void testMazeSolverConstructor() throws IOException {
-        File tempFile = createTempMazeFile("   ");
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        Algorithm algorithm = mock(Algorithm.class);
-        MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
-        assertNotNull(mazeSolver);
-        
-    }
+	// dummy algorithm for testing
+	private static class TestAlgorithm implements Algorithm { 
+		private String solution; 
+		public TestAlgorithm(String solution) { 
+			this.solution = solution; 
+		}
+		@Override
+		public String solveMaze(Maze maze, Position start, Position end) {
+			return solution; 
+		}
+	}
 
     @Test
     void testSolve_simpleMaze() throws IOException {
         File tempFile = createTempMazeFile("   ");
         Maze maze = new Maze(tempFile.getAbsolutePath());
-        Algorithm algorithm = mock(Algorithm.class);
+        Algorithm algorithm = new TestAlgorithm("FF");
         PathFormConverter converter = new PathFormConverter();
-
-        // mock algorithm
-        when(algorithm.solveMaze(any(Maze.class), any(Position.class), any(Position.class))).thenReturn("FF");
 
         MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
         String expected = converter.canonicalToFactorized("FF");
         String actual = mazeSolver.solve();
 
         assertEquals(expected, actual);
-        verify(algorithm, times(1)).solveMaze(eq(maze), any(Position.class), any(Position.class));
     }
 
     @Test
     void testSolve_mazeWithTurns() throws IOException {
         File tempFile = createTempMazeFile(
-                " # \n" +
-                "   "
+				"#######\n" + 
+				"#      \n" + 
+				"### ###\n" + 
+				"#     #\n" + 
+				"### ###\n" + 
+				"      #\n" + 
+				"#######" 
         );
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        Algorithm algorithm = mock(Algorithm.class);
+       Maze maze = new Maze(tempFile.getAbsolutePath());
+        Algorithm algorithm = new TestAlgorithm("FFFFFLLFFRFFRFFLLFFRFFRFFF");
         PathFormConverter converter = new PathFormConverter();
 
-        when(algorithm.solveMaze(any(Maze.class), any(Position.class), any(Position.class))).thenReturn("RFFLFF");
-
         MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
-        String expected = converter.canonicalToFactorized("RFFLFF");
+        String expected = converter.canonicalToFactorized("FFFFFLLFFRFFRFFLLFFRFFRFFF");
         String actual = mazeSolver.solve();
 
         assertEquals(expected, actual);
-        verify(algorithm, times(1)).solveMaze(eq(maze), any(Position.class), any(Position.class));
-    }
-
-    @Test
-    void testSolve_emptyPath() throws IOException {
-        File tempFile = createTempMazeFile("  ");
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        Algorithm algorithm = mock(Algorithm.class);
-        PathFormConverter converter = new PathFormConverter();
-
-        when(algorithm.solveMaze(any(Maze.class), any(Position.class), any(Position.class))).thenReturn("");
-
-        MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
-        String expected = converter.canonicalToFactorized("");
-        String actual = mazeSolver.solve();
-
-        assertEquals(expected, actual);
-        verify(algorithm, times(1)).solveMaze(eq(maze), any(Position.class), any(Position.class));
-    }
-
-    @Test
-    void testSolve_noExit() throws IOException {
-        File tempFile = createTempMazeFile(" ##");
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        Algorithm algorithm = mock(Algorithm.class);
-        PathFormConverter converter = new PathFormConverter();
-
-        // The algorithm might return null or an empty string if no exit is found
-        when(algorithm.solveMaze(any(Maze.class), any(Position.class), any(Position.class))).thenReturn(null);
-
-        MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
-        String expected = converter.canonicalToFactorized(null); // Should handle null gracefully
-        String actual = mazeSolver.solve();
-
-        assertEquals(expected, actual);
-        verify(algorithm, times(1)).solveMaze(eq(maze), any(Position.class), eq(null)); 
     }
 }

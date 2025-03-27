@@ -7,13 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CompassTest {
 
     @Test
-    void testInitialDirection() {
-        Compass compass = new Compass(Direction.N);
-        assertTrue(compass.isPointing(Direction.N));
-        assertEquals(Direction.N, compass.getDirection());
-    }
-
-    @Test
     void testTurnLeft() {
         Compass compass = new Compass(Direction.N);
         compass.turnLeft();

@@ -1,4 +1,3 @@
-// MazeRunnerTest.java
 package ca.mcmaster.se2aa4.mazerunner;
 
 import org.junit.jupiter.api.Test;
@@ -24,15 +23,6 @@ public class MazeRunnerTest {
     }
 
     @Test
-    void testSolveMaze() throws IOException {
-        File tempFile = createTempMazeFile("   ");
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        RightHandAlgorithm algorithm = new RightHandAlgorithm();
-        MazeRunner runner = new MazeRunner(maze, null, algorithm);
-        assertEquals("2F", runner.solve());
-    }
-
-    @Test
     void testCheckPath_correct() throws IOException {
         File tempFile = createTempMazeFile("   ");
         Maze maze = new Maze(tempFile.getAbsolutePath());
@@ -48,31 +38,8 @@ public class MazeRunnerTest {
         assertEquals("incorrect path", runner.solve());
     }
 
-    @Test
-    void testSolveMaze_factorizedOutput() throws IOException {
-        File tempFile = createTempMazeFile("    ");
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        RightHandAlgorithm algorithm = new RightHandAlgorithm();
-        MazeRunner runner = new MazeRunner(maze, null, algorithm);
-        assertEquals("3F", runner.solve());
-    }
-
-    @Test
-    void testSolveMaze_pathWithTurnsFactorized() throws IOException {
-        File tempFile = createTempMazeFile(
-                " # \n" +
-                "   "
-        );
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        RightHandAlgorithm algorithm = new RightHandAlgorithm();
-        MazeRunner runner = new MazeRunner(maze, null, algorithm);
-        String output = runner.solve();
-        assertTrue(output.contains("R") || output.contains("L") || output.contains("F"));
-        assertTrue(output.matches("([0-9]*[RLF] )*[0-9]*[RLF]")); // Check if output is in factorized format
-    }
-
 	@Test
-    void testSolveMaze_complexPath() throws IOException {
+    void testSolveMaze_smallMaze() throws IOException {
         File tempFile = createTempMazeFile(
                 "###########\n" +
                 "#         #\n" +

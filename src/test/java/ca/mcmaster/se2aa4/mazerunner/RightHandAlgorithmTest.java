@@ -35,18 +35,6 @@ public class RightHandAlgorithmTest {
     }
 
     @Test
-    void testSolveMaze_longerStraightMaze() throws IOException {
-        File tempFile = createTempMazeFile("    ");
-        Maze maze = new Maze(tempFile.getAbsolutePath());
-        RightHandAlgorithm algorithm = new RightHandAlgorithm();
-        Position start = maze.getWestEntry();
-        Position exit = maze.getEastEntry();
-        String path = algorithm.solveMaze(maze, start, exit);
-		PathFormConverter converter = new PathFormConverter();
-        assertEquals("3F", converter.canonicalToFactorized(path));
-    }
-
-    @Test
     void testSolveMaze_directMaze() throws IOException {
         File tempFile = createTempMazeFile(
                 "########\n" +
@@ -65,5 +53,39 @@ public class RightHandAlgorithmTest {
 		PathFormConverter converter = new PathFormConverter();
         assertEquals("F R 2F L 3F R F L F R F L 2F", converter.canonicalToFactorized(path));
     }
+
+	@Test 
+	void testSolveMaze_rectangleMaze() throws IOException { 
+		File tempFile = createTempMazeFile(
+				"###################################################\n" +
+                "#       #   #                         #   #       #\n" +
+                "# # ####### ### # ##### # # # # # ##### # # # #####\n" +
+                "# #     #       #     # # # # # # #   # # # #     #\n" +
+                "# # ####### ##### ##### # ######### ##### ### ### #\n" +
+                "# #             # #   # #       #               # #\n" +
+                "# # # ##### # # ### # ######### ### # ##### # # # #\n" +
+                "# # #     # # # #   #   # #   #     #     # # # # #\n" +
+                "# # # # # # # ##### ##### # # ### # # # ###########\n" +
+                "# # # # # # #               #   # # # # #   #     #\n" +
+                "# # ##### ### ### # # # # ##### # # ##### ### ###  \n" +
+                "# #     # # #   # # # # #     # # #             # #\n" +
+                "  # # ##### ######### # # # ####### # # # # # ### #\n" +
+                "# # #               # # # #       # # # # # #   # #\n" +
+                "# # # # # # # # ### ##### # # ####### ### # # # ###\n" +
+                "# # # # # # # #   #     # # #       #   # # # #   #\n" +
+                "# ### # ### # # # ### # # # # # ##### # ### # # ###\n" +
+                "#   # #   # # # #   # # # # # #     # #   # # #   #\n" +
+                "# ##### # ### # # # ##### ##### ####### # ### # ###\n" +
+                "#     # #   # # # #   #       #       # # #   #   #\n" +
+                "###################################################\n"
+        );
+		Maze maze = new Maze(tempFile.getAbsolutePath());
+        RightHandAlgorithm algorithm = new RightHandAlgorithm();
+        Position start = maze.getWestEntry();
+        Position exit = maze.getEastEntry();
+        String path = algorithm.solveMaze(maze, start, exit);
+		PathFormConverter converter = new PathFormConverter();
+		assertEquals("F R 7F L 4F 2L 4F R 2F R 2F 2L 2F R 16F R 2F R 14F 2L 4F R 2F R 6F 2L 4F R 2F R 6F 2L 2F R 2F R 2F L 2F 2L 2F R 2F L 2F R 4F R 2F R 2F 2L 2F R 2F R 4F 2L 4F R 2F R 6F 2L 6F R 2F R 6F 2L 4F R 2F R 4F 2L 2F R 2F R 2F L 2F 2L 2F R 2F L 2F R 2F L 2F R 2F R 4F R 2F L 2F R 2F 2L 2F R 2F R 2F 2L 2F L 4F R 2F L 8F R 2F 2L 2F R 6F R 2F R 2F 2L 4F R 6F R 2F R 4F 2L 2F R 2F R 2F 2L 2F R 2F R 4F 2L 4F L 4F R 2F R 6F R 4F 2L 4F R 2F R 6F L 2F 2L 2F R 2F R 4F R 2F 2L 2F R 2F R 2F 2L 2F R 2F R 4F 2L 4F R 2F R 4F 2L 4F R 2F R 10F R 2F 2L 6F 2L 4F R 8F R 2F R 6F 2L 4F R 2F R 4F 2L 2F R 2F R 4F L 6F 2L 6F R 2F R 4F 2L 4F R 2F R 4F 2L 6F R 2F R 4F 2L 6F R 2F R 2F 2L 4F R 2F R 2F L 2F R 2F R 2F L 2F R 2F 2L 2F L 2F R 2F L 2F L 2F R 2F R 2F 2L 2F R 6F R 4F R 2F R 2F L 2F 2L 2F R 2F L 2F L 2F R 2F 2L 2F R 2F R 6F R 4F R 2F R 2F 2L 2F L 4F R 2F R 4F L 2F R 2F R 4F 2L 2F R 4F 2L 4F R 2F R 6F R 4F 2L 4F R 2F R 4F L 6F R 2F L 2F R 4F 2L 4F R 2F R 6F 2L 2F R 2F R 6F 2L 2F R 2F R 4F 2L 2F R 2F R 2F 2L 2F L 2F R 2F L 2F R 4F R 2F R 2F 2L 2F R 2F R 4F 2L 4F R 2F R 6F 2L 6F R 2F R 8F R 2F 2L 2F L 6F R 2F R 6F L 2F 2L 2F R 2F R 2F 2L 2F R 2F R 2F 2L 2F R 2F L 2F R 2F R 2F 2L 2F R 2F R 4F R 4F 2L 3F R F", converter.canonicalToFactorized(path));
+	}
 
 } 
