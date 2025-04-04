@@ -1,14 +1,14 @@
 /**
- * File: MazeSolver.java
+ * File: SolverStrategy.java
  * Author: Nithika Karunamoorthy
- * Description: The MazeSolver class is responsible for solving the maze using a specified algorithm.
+ * Description: The SolverStrategy class is responsible for solving the maze using a specified algorithm.
  * It utilizes the provided algorithm to navigate the maze from the west entry to the east entry.
  * After solving, the path is converted into a factorized format for user display.
  */
 
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class SolverStrategy implements StrategyTask {
+public class SolverStrategy implements TaskStrategy {
     private Maze maze; // The maze to be solved
     private Algorithm algorithm; // The algorithm used to solve the maze
     private PathFormConverter converter; // Path converter

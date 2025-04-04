@@ -25,7 +25,7 @@ public class Main {
             logger.info("***Start maze***"); 
             Configuration config = Configuration.fromArgs(args);
             Maze maze = new Maze(config.getInputFile()); 
-            Algorithm algorithm = new RightHandAlgorithm(); // Can be changed for future implementations 
+            Algorithm algorithm = new RightHandAlgorithm(); 
             MazeRunner runner = new MazeRunner(maze, config.getInputPath(), algorithm);
             String output = runner.solve();
             System.out.println(output); 

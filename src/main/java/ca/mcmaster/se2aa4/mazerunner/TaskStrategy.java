@@ -1,5 +1,5 @@
 /**
- * File: MazeTask.java
+ * File: TaskStrategy.java
  * Author: Nithika Karunamoorthy
  * Description: This interface defines the contract for tasks related to the maze.
  * Any class that implements this interface must provide a solution for the maze,
@@ -7,6 +7,6 @@
  */
 package ca.mcmaster.se2aa4.mazerunner;
 
-public interface StrategyTask {
+public interface TaskStrategy {
     public String solve(); 
 }
