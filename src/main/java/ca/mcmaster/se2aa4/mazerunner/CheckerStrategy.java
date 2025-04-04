@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MazeChecker implements MazeTask { 
+public class CheckerStrategy implements StrategyTask { 
     private Maze maze; 
     private String userPath;
     private PathFormConverter converter;
@@ -26,7 +26,7 @@ public class MazeChecker implements MazeTask {
      * Constructor to initialize the MazeChecker with the maze and user-provided path.
      * The path is converted into a canonical form to ensure uniformity.
      */ 
-    public MazeChecker(Maze maze, String userPath) { 
+    public CheckerStrategy(Maze maze, String userPath) { 
         this.maze = maze;
         this.userPath = userPath;
         this.converter = new PathFormConverter();

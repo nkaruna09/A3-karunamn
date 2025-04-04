@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MazeSolverTest {
+public class SolverStrategyTest {
 
     @TempDir
     File tempDir;
@@ -48,7 +48,7 @@ public class MazeSolverTest {
         Maze maze = new Maze(tempFile.getAbsolutePath());
         
         Algorithm algorithm = new TestAlgorithm("FF");
-        MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
+        SolverStrategy mazeSolver = new SolverStrategy(maze, algorithm);
 
         String expected = converter.canonicalToFactorized("FF");
         String actual = mazeSolver.solve();
@@ -71,7 +71,7 @@ public class MazeSolverTest {
         
         String path = "FFFFFLLFFRFFRFFLLFFRFFRFFF";
         Algorithm algorithm = new TestAlgorithm(path);
-        MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
+        SolverStrategy mazeSolver = new SolverStrategy(maze, algorithm);
        
         String expected = converter.canonicalToFactorized(path);
         String actual = mazeSolver.solve();

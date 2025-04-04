@@ -8,7 +8,7 @@
 
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class MazeSolver implements MazeTask {
+public class SolverStrategy implements StrategyTask {
     private Maze maze; // The maze to be solved
     private Algorithm algorithm; // The algorithm used to solve the maze
     private PathFormConverter converter; // Path converter
@@ -16,7 +16,7 @@ public class MazeSolver implements MazeTask {
      /**
      * Constructor to initialize the MazeSolver with the maze and the algorithm.
      */
-    public MazeSolver(Maze maze, Algorithm algorithm) {
+    public SolverStrategy(Maze maze, Algorithm algorithm) {
         this.maze = maze; 
         this.algorithm = algorithm;
         this.converter = new PathFormConverter(); // Initialize path converter

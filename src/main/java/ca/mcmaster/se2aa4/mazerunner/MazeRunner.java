@@ -9,7 +9,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 public class MazeRunner { 
-    private MazeTask task; // The task that will be executed (either solving the maze or checking the path)
+    private StrategyTask strategy; // The task that will be executed (either solving the maze or checking the path)
 
     /**
      * Constructor to initialize the MazeRunner with the maze, user-provided path, and algorithm.
@@ -17,9 +17,9 @@ public class MazeRunner {
      */ 
     public MazeRunner(Maze maze, String userPath, Algorithm algorithm) { 
         if (userPath == null) { // If no user path is provided, assign the task as MazeSolver with the given algorithm
-            this.task = new MazeSolver(maze, algorithm); 
+            this.strategy = new SolverStrategy(maze, algorithm); 
         } else { // If a user path is provided, assign the task as MazeChecker to validate the path
-            this.task = new MazeChecker(maze, userPath); 
+            this.strategy = new CheckerStrategy(maze, userPath); 
         }
     }
 
@@ -27,6 +27,6 @@ public class MazeRunner {
      * Executes the assigned task (either solving the maze or checking the path) and returns the result.
      */ 
     public String solve() { 
-       return task.solve(); // Delegate the solve method to the task (either MazeSolver or MazeChecker)
+       return strategy.solve(); // Delegate the solve method to the task (either MazeSolver or MazeChecker)
     }
 }

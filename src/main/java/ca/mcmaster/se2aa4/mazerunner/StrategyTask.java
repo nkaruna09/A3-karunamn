@@ -7,6 +7,6 @@
  */
 package ca.mcmaster.se2aa4.mazerunner;
 
-public interface MazeTask {
+public interface StrategyTask {
     public String solve(); 
 }
