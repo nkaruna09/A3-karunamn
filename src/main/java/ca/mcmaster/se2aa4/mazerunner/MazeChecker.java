@@ -7,10 +7,20 @@
  */
 package ca.mcmaster.se2aa4.mazerunner;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class MazeChecker implements MazeTask { 
     private Maze maze; 
     private String userPath;
     private PathFormConverter converter;
+
+    private static final Map<Character, Command> COMMAND_MAP = Map.of(
+        'F', new MoveForwardCommand(),
+        'R', new TurnRightCommand(),
+        'L', new TurnLeftCommand()
+    );
 
     /**
      * Constructor to initialize the MazeChecker with the maze and user-provided path.
@@ -47,21 +57,25 @@ public class MazeChecker implements MazeTask {
     public boolean checkPath(Position start, Direction startDirection, Position exit) {
         Position currentPosition = new Position(start.getRow(), start.getCol());
         Compass compass = new Compass(startDirection);
+        List<Command> commands = parseUserPath(userPath); // Parse the user path into commands
 
-        for (char step : userPath.toCharArray()) { // Iterate through the user path steps
-            if (step == 'F') { 
-                if (!currentPosition.stepForward(compass, maze)) {
-                    return false; // Invalid step (either out of bounds or into a wall)
-                }
-            } else if (step == 'L') { 
-                compass.turnLeft();
-            } else if (step == 'R') { 
-                compass.turnRight();
-            } else {
-                return false; // Invalid step (anything other than 'F', 'L', or 'R')
+        for (Command command : commands) { 
+            if (!command.execute(currentPosition, compass, maze)){
+                return false; // If any command fails, the path is invalid
             }
         }
 
         return currentPosition.equals(exit); // Check if final position is at the exit 
+    }
+
+    private List<Command> parseUserPath(String userPath) {
+        List<Command> commands = new ArrayList<>();
+        for (char step : userPath.toCharArray()) {
+            Command command = COMMAND_MAP.get(step);
+            if (command != null) {
+                commands.add(command);
+            }
+        }
+        return commands;
     }
 }

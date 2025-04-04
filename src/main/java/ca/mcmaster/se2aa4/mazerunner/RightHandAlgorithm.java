@@ -9,6 +9,16 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 public class RightHandAlgorithm implements Algorithm {
 
+    private final Command turnRight;
+    private final Command turnLeft;
+    private final Command moveForward;
+
+    public RightHandAlgorithm() {
+        this.turnRight = new TurnRightCommand();
+        this.turnLeft = new TurnLeftCommand();
+        this.moveForward = new MoveForwardCommand();
+    }
+
     /**
      * Solves the maze using the right-hand rule.
      */ 
@@ -20,29 +30,29 @@ public class RightHandAlgorithm implements Algorithm {
 
         while (!currentPosition.equals(exit)) { // Continue until current position reaches the exit
             // Try turning right first and moving forward
-            compass.turnRight();
-            if (currentPosition.stepForward(compass, maze)) {
+            turnRight.execute(currentPosition, compass, maze);
+            if (moveForward.execute(currentPosition, compass, maze)) {
                 path.append("R").append("F");
                 continue;
             }
 
             // If we can't move forward, undo the right turn and try to move forward
-            compass.turnLeft(); // Undo the right turn
-            if (currentPosition.stepForward(compass, maze)) {
+            turnLeft.execute(currentPosition, compass, maze); // Undo the right turn
+            if (moveForward.execute(currentPosition, compass, maze)) {
                 path.append("F");
                 continue;
             }
 
             // If moving forward isn't possible, turn left and move forward
-            compass.turnLeft();
-            if (currentPosition.stepForward(compass, maze)) {
+            turnLeft.execute(currentPosition, compass, maze);
+            if (moveForward.execute(currentPosition, compass, maze)) {
                 path.append("L").append("F");
                 continue;
             }
 
             // If all else fails, turn around and move forward
-            compass.turnLeft();
-            if (currentPosition.stepForward(compass, maze)) {
+            turnLeft.execute(currentPosition, compass, maze);
+            if (moveForward.execute(currentPosition, compass, maze)) {
                 path.append("L").append("L").append("F");
                 continue;
             }
