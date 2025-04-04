@@ -1,5 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -13,6 +14,13 @@ public class MazeSolverTest {
 
     @TempDir
     File tempDir;
+
+    private PathFormConverter converter;
+
+    @BeforeEach
+    void setUp() {
+        converter = new PathFormConverter();
+    }
 
     private File createTempMazeFile(String content) throws IOException {
         File tempFile = new File(tempDir, "temp_maze.txt");
@@ -38,10 +46,10 @@ public class MazeSolverTest {
     void testSolve_simpleMaze() throws IOException {
         File tempFile = createTempMazeFile("   ");
         Maze maze = new Maze(tempFile.getAbsolutePath());
+        
         Algorithm algorithm = new TestAlgorithm("FF");
-        PathFormConverter converter = new PathFormConverter();
-
         MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
+
         String expected = converter.canonicalToFactorized("FF");
         String actual = mazeSolver.solve();
 
@@ -59,12 +67,13 @@ public class MazeSolverTest {
 				"      #\n" + 
 				"#######" 
         );
-       Maze maze = new Maze(tempFile.getAbsolutePath());
-        Algorithm algorithm = new TestAlgorithm("FFFFFLLFFRFFRFFLLFFRFFRFFF");
-        PathFormConverter converter = new PathFormConverter();
-
+        Maze maze = new Maze(tempFile.getAbsolutePath());
+        
+        String path = "FFFFFLLFFRFFRFFLLFFRFFRFFF";
+        Algorithm algorithm = new TestAlgorithm(path);
         MazeSolver mazeSolver = new MazeSolver(maze, algorithm);
-        String expected = converter.canonicalToFactorized("FFFFFLLFFRFFRFFLLFFRFFRFFF");
+       
+        String expected = converter.canonicalToFactorized(path);
         String actual = mazeSolver.solve();
 
         assertEquals(expected, actual);

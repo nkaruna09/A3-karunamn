@@ -1,5 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -14,6 +15,13 @@ public class MazeLoaderTest {
     @TempDir
     File tempDir;
 
+    private MazeLoader loader;
+
+    @BeforeEach
+    void setUp() { 
+        loader = new MazeLoader(); 
+    }
+
     private File createTempMazeFile(String content) throws IOException {
         File tempFile = new File(tempDir, "temp_maze.txt");
         try (FileWriter writer = new FileWriter(tempFile)) {
@@ -25,7 +33,6 @@ public class MazeLoaderTest {
     @Test
     void testValidMaze() throws IOException {
         File tempFile = createTempMazeFile("#####\n#   #\n# # #\n#   #\n#####");
-        MazeLoader loader = new MazeLoader();
         Element[][] maze = loader.generateMaze(tempFile.getAbsolutePath());
         assertEquals(5, maze.length);
         assertEquals(5, maze[0].length);
@@ -37,7 +44,6 @@ public class MazeLoaderTest {
     @Test
     void testEmptyLine() throws IOException {
         File tempFile = createTempMazeFile("#####\n\n# # #\n#####");
-        MazeLoader loader = new MazeLoader();
         Element[][] maze = loader.generateMaze(tempFile.getAbsolutePath());
         assertEquals(4, maze.length);
         assertEquals(5, maze[0].length);
@@ -48,7 +54,6 @@ public class MazeLoaderTest {
     @Test
     void testIOException() throws IOException {
         File tempFile = createTempMazeFile("#####");
-        MazeLoader loader = new MazeLoader();
         assertDoesNotThrow(() -> {
             loader.generateMaze(tempFile.getAbsolutePath());
         });

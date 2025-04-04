@@ -1,13 +1,20 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CompassTest {
 
+    private Compass compass;
+
+    @BeforeEach 
+    void setUp() {
+        compass = new Compass(Direction.N);
+    }
+
     @Test
     void testTurnLeft() {
-        Compass compass = new Compass(Direction.N);
         compass.turnLeft();
         assertTrue(compass.isPointing(Direction.W));
         compass.turnLeft();
@@ -20,7 +27,6 @@ public class CompassTest {
 
     @Test
     void testTurnRight() {
-        Compass compass = new Compass(Direction.N);
         compass.turnRight();
         assertTrue(compass.isPointing(Direction.E));
         compass.turnRight();

@@ -1,5 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -14,6 +15,13 @@ public class PositionTest {
     @TempDir
     File tempDir;
 
+    private Compass compass;
+
+    @BeforeEach
+    void setUp() {
+        compass = new Compass(Direction.N);
+    }   
+
     private File createTempMazeFile(String content) throws IOException {
         File tempFile = new File(tempDir, "temp_maze.txt");
         try (FileWriter writer = new FileWriter(tempFile)) {
@@ -27,7 +35,6 @@ public class PositionTest {
         File tempFile = createTempMazeFile("#####\n# # #\n#####");
         Maze maze = new Maze(tempFile.getAbsolutePath());
         Position pos = new Position(0, 1);
-        Compass compass = new Compass(Direction.N);
         assertFalse(pos.stepForward(compass, maze));
         assertEquals(0, pos.getRow());
         assertEquals(1, pos.getCol());
@@ -38,7 +45,6 @@ public class PositionTest {
         File tempFile = createTempMazeFile("#####\n#   #\n#####");
         Maze maze = new Maze(tempFile.getAbsolutePath());
         Position pos = new Position(1, 1);
-        Compass compass = new Compass(Direction.N);
         assertFalse(pos.stepForward(compass, maze));
     }
 }
